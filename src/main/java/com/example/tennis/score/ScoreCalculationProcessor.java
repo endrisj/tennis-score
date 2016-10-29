@@ -8,9 +8,11 @@ import java.util.stream.Collectors;
 public class ScoreCalculationProcessor {
     
     private ScoreBoard scoreBoard;
+    private ScoreCalculator scoreCalculator;
 
     public ScoreCalculationProcessor(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
+        scoreCalculator = new ScoreCalculator();
     }
     
     /**
@@ -19,8 +21,12 @@ public class ScoreCalculationProcessor {
      * @return winner
      */
     public Player calculateWinner(List<String> points) {
+        
         points = Optional.ofNullable(points).orElse(new ArrayList<>());
         points = filterInvalidParams(points);
+        
+        points.stream()
+            .forEach(point -> scoreCalculator.addPointToPlayer(Player.valueOf(point), scoreBoard));
         
         return Player.NO_ONE;
     }

@@ -50,7 +50,7 @@ public class ScoreCalculationProcessorTest {
     public void calculateWinner_withOneAPoint_scorePrintedAndNoWinner() {
         List<String> points = Arrays.asList("A");
         ScoreCalculationProcessor.Player winner = processor.calculateWinner(points);
-        verify(scoreBoard, times(1)).publish("Fifteen :: Love");
+        verify(scoreBoard, times(1)).publish("FIFTEEN :: LOVE");
         assertEquals(ScoreCalculationProcessor.Player.NO_ONE, winner);
     }
     
@@ -58,7 +58,7 @@ public class ScoreCalculationProcessorTest {
     public void calculateWinner_withOneBPoint_scorePrintedAndNoWinner() {
         List<String> points = Arrays.asList("B");
         ScoreCalculationProcessor.Player winner = processor.calculateWinner(points);
-        verify(scoreBoard, times(1)).publish("Love :: Fifteen");
+        verify(scoreBoard, times(1)).publish("LOVE :: FIFTEEN");
         assertEquals(ScoreCalculationProcessor.Player.NO_ONE, winner);
     }
 }
