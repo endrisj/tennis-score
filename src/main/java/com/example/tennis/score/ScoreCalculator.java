@@ -16,7 +16,7 @@ public class ScoreCalculator {
         playerPoints.put(ScoreCalculationProcessor.Player.B, 0);
     }
     
-    public void addPointToPlayer(ScoreCalculationProcessor.Player player, ScoreBoard scoreBoard) {
+    public boolean addPointToPlayer(ScoreCalculationProcessor.Player player, ScoreBoard scoreBoard) {
         playerPoints.put(player, playerPoints.get(player)+1);
         
         int playerAPoints = playerPoints.get(ScoreCalculationProcessor.Player.A);
@@ -24,5 +24,19 @@ public class ScoreCalculator {
         
         String result = PointCall.values()[playerAPoints]+" :: "+PointCall.values()[playerBPoints];
         scoreBoard.publish(result);
+        
+        return playerPoints.get(player) >= 4;
+    }
+    
+    private boolean isGame(int firstPlayerPoints, int opponentPlayerPoints) {
+        return (firstPlayerPoints > 3 && (firstPlayerPoints - opponentPlayerPoints) >= 2);
+    }
+    
+    private boolean isDeuce(int firstPlayerPoints, int opponentPlayerPoints) {
+        return ((firstPlayerPoints + opponentPlayerPoints) > 5 && firstPlayerPoints == opponentPlayerPoints);
+    }
+    
+    private boolean isAdvantage(int firstPlayerPoints, int opponentPlayerPoints) {
+        return ((firstPlayerPoints + opponentPlayerPoints) > 6 && (firstPlayerPoints - opponentPlayerPoints) == 1);
     }
 }

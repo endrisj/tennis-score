@@ -25,10 +25,11 @@ public class ScoreCalculationProcessor {
         points = Optional.ofNullable(points).orElse(new ArrayList<>());
         points = filterInvalidParams(points);
         
-        points.stream()
-            .forEach(point -> scoreCalculator.addPointToPlayer(Player.valueOf(point), scoreBoard));
+        Optional<String> winner = points.stream()
+            .filter(point -> scoreCalculator.addPointToPlayer(Player.valueOf(point), scoreBoard))
+            .findFirst();
         
-        return Player.NO_ONE;
+        return Player.valueOf(winner.orElse("NO_ONE"));
     }
     
     private List<String> filterInvalidParams(List<String> pointSequence) {
