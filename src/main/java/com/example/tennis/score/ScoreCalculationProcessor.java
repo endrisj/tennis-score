@@ -22,31 +22,25 @@ public class ScoreCalculationProcessor {
      * @return winner
      */
     public Player calculateWinner(List<String> points) {
-        
         points = Optional.ofNullable(points).orElse(new ArrayList<>());
-        points = filterInvalidParams(points);
+//        points = filterInvalidParams(points);
         
-        List<Integer> pointsAsNumbers = new ArrayList<>();
-        for (String point : points) {
-            if ("A".equals(point)) {
-                pointsAsNumbers.add(1);
-            } else {
-                pointsAsNumbers.add(-1);
-            }
-        }
-        pointsAsNumbers.stream().forEach(point -> System.out.print("`"+point+"` "));
+//        List<Integer> pointsAsNumbers = new ArrayList<>();
+//        for (String point : points) {
+//            if ("A".equals(point)) {
+//                pointsAsNumbers.add(1);
+//            } else {
+//                pointsAsNumbers.add(-1);
+//            }
+//        }
         
-        
-//        return Player.B;
-//        /*
-        Counter counter = new Counter();
-        Sum sum = new Sum();
         IsWinner isWinner = new IsWinner();
-        Optional<Integer> winner = pointsAsNumbers.stream()
-                .filter(point -> isWinner.isWinner(point))
+        Optional<String> winner = points.stream()
+                .filter(pointFor -> isPlayerNameValid(pointFor))
+                .filter(pointFor -> isWinner.isWinner(Player.valueOf(pointFor).nameAsNumber()))
                 .findFirst();
         
-        System.out.println("\nREAL WINNER :: "+winner);
+//        System.out.println("\nREAL WINNER :: "+winner);
         
         /*
         Optional<String> winner = points.stream()
@@ -54,8 +48,8 @@ public class ScoreCalculationProcessor {
             .findFirst();
         */
         
-//        return Player.valueOf(winner.orElse("NO_ONE"));
-        return Player.valueOf("NO_ONE");
+        return Player.valueOf(winner.orElse("NO_ONE"));
+//        return Player.valueOf("NO_ONE");
     }
     
     public static class IsWinner {
@@ -72,27 +66,15 @@ public class ScoreCalculationProcessor {
         }
     }
     
-    public static class Counter {
-        private int counter = 0;
-        public int inc(int numb) {
-            System.out.println("COUNTER :: ");
-            return ++counter;
-        }
-    }
-    public static class Sum {
-        private int sum = 0;
-        public int add(int number) {
-            sum += number;
-            System.out.println("SUM :: "+number+" :: "+sum);
-            return sum;
-        }
+    private boolean isPlayerNameValid(String playerName) {
+        return Player.A.name().equals(playerName) || Player.B.name().equals(playerName);
     }
     
-    private List<String> filterInvalidParams(List<String> pointSequence) {
-        return pointSequence.stream()
-            .filter(point -> Player.A.name().equals(point) || Player.B.name().equals(point))
-            .collect(Collectors.toList());
-    }
+//    private List<String> filterInvalidParams(List<String> pointSequence) {
+//        return pointSequence.stream()
+//            
+//            .collect(Collectors.toList());
+//    }
     
     
     
@@ -100,9 +82,18 @@ public class ScoreCalculationProcessor {
     
     
     public static enum Player {
-        A,
-        B,
-        NO_ONE
+        A(1),
+        B(-1),
+        NO_ONE(0);
+        
+        private int nameAsNumber;
+        Player(int nameAsNumber) {
+            this.nameAsNumber = nameAsNumber;
+        }
+        
+        public int nameAsNumber() {
+            return nameAsNumber;
+        }
     }
     
     
