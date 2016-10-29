@@ -6,19 +6,19 @@ import java.util.Optional;
 
 public class ScoreCalculator {
     
+    private int totalPointsInThisServe = 0;
+    private int pointsDiffBetweenPlayers = 0;
+    
     /**
-     * 
      * @param points
      * @return winner
      */
     public Player calculateWinner(List<String> points) {
         points = Optional.ofNullable(points).orElse(new ArrayList<>());
-        IsWinner isWinner = new IsWinner();
         Optional<String> winner = points.stream()
                 .filter(pointFor -> isPlayerNameValid(pointFor))
-                .filter(pointFor -> isWinner.isWinner(Player.valueOf(pointFor).nameAsNumber()))
+                .filter(pointFor -> doWeHaveWinner(Player.valueOf(pointFor).nameAsNumber()))
                 .findFirst();
-        
         return Player.valueOf(winner.orElse("NO_ONE"));
     }
     
@@ -26,18 +26,12 @@ public class ScoreCalculator {
         return Player.A.name().equals(playerName) || Player.B.name().equals(playerName);
     }
     
-    
-    
-    public static class IsWinner {
-        private int counter = 0;
-        private int sum = 0;
-        public boolean isWinner(int point) {
-            counter++;
-            sum += point;
-            return (
-                    (counter > 4 && Math.abs(sum) >= 2)
-                    || (counter == 4 && Math.abs(sum) >= 3)
-                );
-        }
+    public boolean doWeHaveWinner(int point) {
+        totalPointsInThisServe++;
+        pointsDiffBetweenPlayers += point;
+        return (
+                (totalPointsInThisServe > 4 && Math.abs(pointsDiffBetweenPlayers) >= 2)
+                || (totalPointsInThisServe == 4 && Math.abs(pointsDiffBetweenPlayers) >= 3)
+            );
     }
 }

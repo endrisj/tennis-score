@@ -46,6 +46,7 @@ public class ScoreCalculatorTest {
             { "1", Arrays.asList("A", "A", "A"),                Player.NO_ONE },
             { "2", Arrays.asList("A", "A", "A", "A"),           Player.A },
             { "3", Arrays.asList("B", "B", "B", "B"),           Player.B },
+            { "4", Arrays.asList("A", "A", "A", "B", "A"),      Player.A },
             { "4", Arrays.asList("A", "A", "A", "B", "B", "A"), Player.A },
             { "5", Arrays.asList("B", "B", "A", "A", "B", "B"), Player.B },
             
