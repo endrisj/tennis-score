@@ -15,18 +15,18 @@ public class ScoreCalculationProcessor {
     
     /**
      * 
-     * @param scores
+     * @param points
      * @return winner
      */
-    public Player calculate(List<String> scores) {
-        scores = Optional.ofNullable(scores).orElse(new ArrayList<>());
-        scores = filterInvalidParams(scores);
+    public Player calculateWinner(List<String> points) {
+        points = Optional.ofNullable(points).orElse(new ArrayList<>());
+        points = filterInvalidParams(points);
         
         return Player.NO_ONE;
     }
     
-    private List<String> filterInvalidParams(List<String> scoringSequence) {
-        return scoringSequence.stream()
+    private List<String> filterInvalidParams(List<String> pointSequence) {
+        return pointSequence.stream()
             .filter(point -> Player.A.name().equals(point) || Player.B.name().equals(point))
             .collect(Collectors.toList());
     }
