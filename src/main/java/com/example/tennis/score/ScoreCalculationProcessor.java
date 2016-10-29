@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class ScoreCalculator {
+public class ScoreCalculationProcessor {
     
     private ScoreBoard scoreBoard;
 
-    public ScoreCalculator(ScoreBoard scoreBoard) {
+    public ScoreCalculationProcessor(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
     }
     
