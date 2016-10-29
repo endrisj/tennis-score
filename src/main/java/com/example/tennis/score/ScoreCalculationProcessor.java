@@ -8,11 +8,9 @@ import java.util.stream.Collectors;
 
 public class ScoreCalculationProcessor {
     
-    private ScoreBoard scoreBoard;
     private ScoreCalculator scoreCalculator;
 
-    public ScoreCalculationProcessor(ScoreBoard scoreBoard) {
-        this.scoreBoard = scoreBoard;
+    public ScoreCalculationProcessor() {
         scoreCalculator = new ScoreCalculator();
     }
     

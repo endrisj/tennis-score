@@ -16,14 +16,14 @@ public class ScoreCalculator {
         playerPoints.put(ScoreCalculationProcessor.Player.B, 0);
     }
     
-    public boolean addPointToPlayer(ScoreCalculationProcessor.Player player, ScoreBoard scoreBoard) {
+    public boolean addPointToPlayer(ScoreCalculationProcessor.Player player) {
         playerPoints.put(player, playerPoints.get(player)+1);
         
         int playerAPoints = playerPoints.get(ScoreCalculationProcessor.Player.A);
         int playerBPoints = playerPoints.get(ScoreCalculationProcessor.Player.B);
         
         String result = PointCall.values()[playerAPoints]+" :: "+PointCall.values()[playerBPoints];
-        scoreBoard.publish(result);
+//        scoreBoard.publish(result);
         
         return playerPoints.get(player) >= 4;
     }
