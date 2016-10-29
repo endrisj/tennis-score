@@ -31,7 +31,7 @@ public class ScoreCalculator {
         pointsDiffBetweenPlayers += point;
         return (
                 (totalPointsInThisServe > 4 && Math.abs(pointsDiffBetweenPlayers) >= 2)
-                || (totalPointsInThisServe == 4 && Math.abs(pointsDiffBetweenPlayers) >= 3)
+                || (totalPointsInThisServe == 4 && Math.abs(pointsDiffBetweenPlayers) >= 4)
             );
     }
 }
